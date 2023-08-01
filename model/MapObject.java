@@ -1,5 +1,7 @@
 package goldmining.model;
 
+import goldmining.constant.MapObjectType;
+
 public abstract class MapObject {
 
     private Location location;
@@ -17,4 +19,6 @@ public abstract class MapObject {
     }
 
     public abstract String getInfo();
+
+    public abstract MapObjectType getObjectType();
 }

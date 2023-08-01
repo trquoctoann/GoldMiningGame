@@ -4,26 +4,25 @@ import goldmining.constant.ResourcesType;
 
 import goldmining.model.Location;
 
-public class Gold extends Resource {
+public class Wood extends Resource {
+    private final int WOOD_PRICE = 1;
 
-    private final int GOLD_PRICE = 3;
-
-    public Gold(Location location) {
+    public Wood(Location location) {
         super(location);
     }
 
     @Override
     public int getPrice() {
-        return GOLD_PRICE;
+        return WOOD_PRICE;
     }
 
     @Override
     public String getInfo() {
-        return "Gold";
+        return "Wood";
     }
 
     @Override
     public ResourcesType getResourcesType() {
-        return ResourcesType.GOLD;
+        return ResourcesType.WOOD;
     }
 }

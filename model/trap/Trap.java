@@ -1,11 +1,12 @@
 package goldmining.model.trap;
 
+import goldmining.constant.MapObjectType;
+import goldmining.constant.TrapType;
+
 import goldmining.model.Location;
 import goldmining.model.MapObject;
 
-public class Trap extends MapObject {
-
-    private static final int TRAP_DAMAGE = 1;
+public abstract class Trap extends MapObject {
 
     public Trap(Location location) {
         super(location);
@@ -21,11 +22,14 @@ public class Trap extends MapObject {
         currentLocation.setLongitude(newLongitude);
     }
 
-    public static int getDamage() {
-        return TRAP_DAMAGE;
+    @Override
+    public MapObjectType getObjectType() {
+        return MapObjectType.TRAP;
     }
 
-    public String getInfo() {
-        return "Trap";
-    }
+    public abstract int getDamage();
+
+    public abstract String getInfo();
+
+    public abstract TrapType getTrapType();
 }

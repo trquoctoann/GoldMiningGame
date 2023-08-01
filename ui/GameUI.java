@@ -1,6 +1,7 @@
 package goldmining.ui;
 
 import goldmining.constant.Direction;
+import goldmining.constant.MapObjectType;
 import goldmining.game.Game;
 import goldmining.model.MapObject;
 
@@ -35,14 +36,20 @@ public class GameUI extends JFrame implements KeyListener {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    MapObject mapObject = game.getMapObject(row, col);
+                    MapObject resourceObject = game.getMapObject(row, col, MapObjectType.RESOURCES);
+                    MapObject trapObject = game.getMapObject(row, col, MapObjectType.TRAP);
+                    MapObject minerObject = game.getMapObject(row, col, MapObjectType.MINER);
+
                     SquareUI square;
-                    if (mapObject != null) {
-                        square = new SquareUI(mapObject);
+                    if (resourceObject != null && minerObject == null) {
+                        square = new SquareUI(resourceObject, game);
+                    } else if (trapObject != null && minerObject == null) {
+                        square = new SquareUI(trapObject, game);
+                    } else if (minerObject != null) {
+                        square = new SquareUI(minerObject, game);
                     } else {
                         square = new SquareUI();
                     }
-
                     Border border = new MatteBorder(1, 1, 1, 1, Color.GRAY);
                     square.setBorder(border);
                     add(square, gbc);
