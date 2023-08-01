@@ -36,16 +36,10 @@ public class GameUI extends JFrame implements KeyListener {
                     gbc.gridx = col;
                     gbc.gridy = row;
 
-                    MapObject resourceObject = game.getMapObject(row, col, MapObjectType.RESOURCES);
-                    MapObject trapObject = game.getMapObject(row, col, MapObjectType.TRAP);
                     MapObject minerObject = game.getMapObject(row, col, MapObjectType.MINER);
 
                     SquareUI square;
-                    if (resourceObject != null && minerObject == null) {
-                        square = new SquareUI(resourceObject, game);
-                    } else if (trapObject != null && minerObject == null) {
-                        square = new SquareUI(trapObject, game);
-                    } else if (minerObject != null) {
+                    if (minerObject != null) {
                         square = new SquareUI(minerObject, game);
                     } else {
                         square = new SquareUI();

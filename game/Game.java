@@ -256,29 +256,28 @@ public class Game {
         if (isLose()) return 'L';
         return ' ';
     }
-    
-    private boolean isNearObject(int latitude, int longitude, MapObjectType mapObjectType) {
-    
+
+    private boolean isMatchingType(MapObjectType desiredType, MapObject mapObject) {
+        if (desiredType == MapObjectType.RESOURCES) {
+            return GameUtil.isResource(mapObject);
+        } else if (desiredType == MapObjectType.TRAP) {
+            return GameUtil.isTrap(mapObject);
+        }
+        return false;
+    }
+
+    private boolean isNearObject(int latitude, int longitude, MapObjectType desiredType) {
         int[][] directions = {
             {latitude - 1, longitude}, 
             {latitude + 1, longitude}, 
             {latitude, longitude - 1}, 
             {latitude, longitude + 1}
         };
-    
+
         for (int[] direction : directions) {
-            MapObject pointedResource = getMapObject(direction[0], direction[1], MapObjectType.RESOURCES);
-            MapObject pointedTrap = getMapObject(direction[0], direction[1], MapObjectType.TRAP);
-            if (pointedResource != null) {
-                if (mapObjectType == MapObjectType.RESOURCES && GameUtil.isResource(pointedResource)) {
-                    return true;
-                } 
-            }
-            
-            if (pointedTrap != null) {
-                if (mapObjectType == MapObjectType.TRAP && GameUtil.isTrap(pointedTrap)) {
-                    return true;
-                }
+            MapObject pointedObject = getMapObject(direction[0], direction[1], desiredType);
+            if (pointedObject != null && isMatchingType(desiredType, pointedObject)) {
+                return true;
             }
         }
         return false;
